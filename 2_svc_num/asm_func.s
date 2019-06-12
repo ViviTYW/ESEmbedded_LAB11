@@ -33,9 +33,17 @@ start_user:
 
 .global	sys_call
 sys_call:
-	??????
+	svc #0x00
+	bx lr
+
+.global sys_call_add
+sys_call_add:
+	SVC #0XA
+	bx lr
 
 .type svc_handler, %function
 .global svc_handler
 svc_handler:
-	??????
+	movs r0, lr
+	mrs  r1, msp
+	b svc_handler_c
